@@ -3,6 +3,8 @@
 #include <stdbool.h>
 
 #include "SDL2/SDL.h"
+#include "fonctions_fichiers.h"
+#include "fonctions_SDL.h"
 
 #define MULTIPLICATEUR 1
 #define TAILLE_ECRAN_X 700 * MULTIPLICATEUR
@@ -10,10 +12,16 @@
 
 int main()
 {
-    bool terminer = false;
+    char** tab;
+    char* fichier = "map.txt";
+    int nbLig, nbCol;
+
+    taille_fichier(fichier, &nbLig, &nbCol);
+    tab = lire_fichier(fichier);
+    
+    //--------------------------------INITIALISATION SDL--------------------------------//
     SDL_Event evenement;
 
-    //--------------------------------INITIALISATION SDL--------------------------------//
     if(SDL_Init(SDL_INIT_VIDEO) < 0){
         printf("ERREUR D'INITIALISATION DE LA SDL : %s", SDL_GetError());
         SDL_Quit();
@@ -28,9 +36,35 @@ int main()
 
     SDL_Renderer* renderer = SDL_CreateRenderer(fenetre, -1, SDL_RENDERER_ACCELERATED);
 
+    //--------------------------------TEXTURES--------------------------------//
+    SDL_Texture* block = charger_image("Ressource_projet/block.bmp", renderer);
+    int blockW, blockH;
+    SDL_QueryTexture(block, NULL, NULL, &blockW, &blockH);
+
+    blockW /= 2;
+
+    SDL_Rect SrcBlocks[2], DestBlock;
+    for(int i = 0; i < 2; i++){
+        SrcBlocks[i].x = i * 7;
+        SrcBlocks[i].y = 0;
+        SrcBlocks[i].w = blockW;
+        SrcBlocks[i].h = blockH;
+    }
+
     //--------------------------------BOUCLE DE JEU--------------------------------//
+    bool terminer = false;
+
     while(!terminer){
         SDL_RenderClear(renderer);
+
+        for(int i = 0; i < nbLig; i ++){
+            for(int j = 0; j < nbCol; j++){
+                DestBlock.x = j*7*MULTIPLICATEUR;
+                DestBlock.y = i*7*MULTIPLICATEUR;
+                DestBlock.w = blockW*MULTIPLICATEUR;
+                DestBlock.h = blockH*MULTIPLICATEUR;
+            }
+        }
 
         SDL_PollEvent(&evenement);
         switch (evenement.type){
