@@ -6,9 +6,9 @@
 #include "fonctions_fichiers.h"
 #include "fonctions_SDL.h"
 
-#define MULTIPLICATEUR 1
-#define TAILLE_ECRAN_X 700 * MULTIPLICATEUR
-#define TAILLE_ECRAN_Y 700 * MULTIPLICATEUR
+#define MULTIPLICATEUR 7
+#define TAILLE_ECRAN_X 140 * MULTIPLICATEUR
+#define TAILLE_ECRAN_Y 49 * MULTIPLICATEUR
 
 int main()
 {
@@ -63,6 +63,13 @@ int main()
                 DestBlock.y = i*7*MULTIPLICATEUR;
                 DestBlock.w = blockW*MULTIPLICATEUR;
                 DestBlock.h = blockH*MULTIPLICATEUR;
+
+                if(tab[i][j] == '0'){
+                    SDL_RenderCopy(renderer, block, &SrcBlocks[1], &DestBlock);
+                }
+                if(tab[i][j] == '1'){
+                    SDL_RenderCopy(renderer, block, &SrcBlocks[0], &DestBlock);
+                }
             }
         }
 
