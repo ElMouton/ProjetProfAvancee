@@ -124,36 +124,19 @@ int main()
                 break;
 
             case SDLK_UP:
-                if(tab[DestPerso.y/TAILLE_BLOCK/MULTIPLICATEUR][DestPerso.x/TAILLE_BLOCK/MULTIPLICATEUR] != '1'){
-                    DestPerso.y -= 1;
-                }
-                if(tab[DestPerso.y/TAILLE_BLOCK/MULTIPLICATEUR][DestPerso.x/TAILLE_BLOCK/MULTIPLICATEUR] == '1'){
-                    DestPerso.y += 1;
-
-                }
-                    
+                DestPerso.y -= 2;                    
                 break;
 
             case SDLK_DOWN:
-                if(tab[(DestPerso.y + persoH*MULTIPLICATEUR)/TAILLE_BLOCK/MULTIPLICATEUR][DestPerso.x/TAILLE_BLOCK/MULTIPLICATEUR] != '1'){
                     DestPerso.y += 1;
-                }
                 break;
 
             case SDLK_LEFT:
-                if(tab[DestPerso.y/TAILLE_BLOCK/MULTIPLICATEUR][DestPerso.x/TAILLE_BLOCK/MULTIPLICATEUR] != '1'){
                     DestPerso.x -= 1;
-                }
-                if(tab[DestPerso.y/TAILLE_BLOCK/MULTIPLICATEUR][DestPerso.x/TAILLE_BLOCK/MULTIPLICATEUR] == '1'){
-                    DestPerso.x += 1;
-
-                }
                 break;
             
             case SDLK_RIGHT:
-                if(tab[DestPerso.y/TAILLE_BLOCK/MULTIPLICATEUR][(DestPerso.x + persoW*MULTIPLICATEUR)/TAILLE_BLOCK/MULTIPLICATEUR] != '1'){
                     DestPerso.x += 1;
-                }
                 break;
 
             default:
@@ -162,6 +145,24 @@ int main()
         
         default:
             break;
+        }
+
+        DestPerso.y += 1;
+
+        if(tab[DestPerso.y/TAILLE_BLOCK/MULTIPLICATEUR][DestPerso.x/TAILLE_BLOCK/MULTIPLICATEUR] == '1'){
+            DestPerso.y += 1;
+        }
+
+        if(tab[(DestPerso.y + persoH*MULTIPLICATEUR)/TAILLE_BLOCK/MULTIPLICATEUR][DestPerso.x/TAILLE_BLOCK/MULTIPLICATEUR] == '1'){
+            DestPerso.y -= 1;
+        }
+
+        if(tab[DestPerso.y/TAILLE_BLOCK/MULTIPLICATEUR][DestPerso.x/TAILLE_BLOCK/MULTIPLICATEUR] == '1'){
+            DestPerso.x += 1;
+        }
+
+        if(tab[DestPerso.y/TAILLE_BLOCK/MULTIPLICATEUR][(DestPerso.x + persoW*MULTIPLICATEUR)/TAILLE_BLOCK/MULTIPLICATEUR] == '1'){
+            DestPerso.x -= 1;
         }
 
         //Affichage des éléments 
