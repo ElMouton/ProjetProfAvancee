@@ -9,6 +9,7 @@
 #define MULTIPLICATEUR 7
 #define TAILLE_ECRAN_X 140 * MULTIPLICATEUR
 #define TAILLE_ECRAN_Y 91 * MULTIPLICATEUR
+#define TAILLE_BLOCK 7
 
 int main()
 {
@@ -50,7 +51,7 @@ int main()
 
     SDL_Rect SrcBlocks[nbBlockW], DestBlock;   //Séparation dans le fichier source des différents block
     for(int i = 0; i < nbBlockW; i++){
-        SrcBlocks[i].x = i * 7;
+        SrcBlocks[i].x = i * TAILLE_BLOCK;
         SrcBlocks[i].y = 0;
         SrcBlocks[i].w = blockW;
         SrcBlocks[i].h = blockH;
@@ -73,10 +74,10 @@ int main()
     SrcPerso.w = persoW;
     SrcPerso.h = persoH;
 
-    DestPerso.x = 7*MULTIPLICATEUR;
-    DestPerso.y = 7*MULTIPLICATEUR;
+    DestPerso.x = TAILLE_BLOCK*MULTIPLICATEUR;
+    DestPerso.y = TAILLE_BLOCK*MULTIPLICATEUR;
     DestPerso.w = persoW*MULTIPLICATEUR;
-    DestPerso.h = persoW*MULTIPLICATEUR;
+    DestPerso.h = persoH*MULTIPLICATEUR;
 
     //--------------------------------BOUCLE DE JEU--------------------------------//
     bool terminer = false;
@@ -87,8 +88,8 @@ int main()
         //Création et affichage de la map
         for(int i = 0; i < nbLig; i ++){
             for(int j = 0; j < nbCol; j++){
-                DestBlock.x = j*7*MULTIPLICATEUR;
-                DestBlock.y = i*7*MULTIPLICATEUR;
+                DestBlock.x = j*TAILLE_BLOCK*MULTIPLICATEUR;
+                DestBlock.y = i*TAILLE_BLOCK*MULTIPLICATEUR;
                 DestBlock.w = blockW*MULTIPLICATEUR;
                 DestBlock.h = blockH*MULTIPLICATEUR;
 
@@ -107,7 +108,7 @@ int main()
         //Affichage du personnage
         SDL_RenderCopy(renderer, perso, &SrcPerso, &DestPerso);
         
-        
+        printf("%d\n",persoH);
 
         //Evenement du clavier
         SDL_PollEvent(&evenement);
@@ -123,19 +124,36 @@ int main()
                 break;
 
             case SDLK_UP:
+                if(tab[DestPerso.y/TAILLE_BLOCK/MULTIPLICATEUR][DestPerso.x/TAILLE_BLOCK/MULTIPLICATEUR] != '1'){
                     DestPerso.y -= 1;
+                }
+                if(tab[DestPerso.y/TAILLE_BLOCK/MULTIPLICATEUR][DestPerso.x/TAILLE_BLOCK/MULTIPLICATEUR] == '1'){
+                    DestPerso.y += 1;
+
+                }
+                    
                 break;
 
             case SDLK_DOWN:
-                DestPerso.y += 1;
+                if(tab[(DestPerso.y + persoH*MULTIPLICATEUR)/TAILLE_BLOCK/MULTIPLICATEUR][DestPerso.x/TAILLE_BLOCK/MULTIPLICATEUR] != '1'){
+                    DestPerso.y += 1;
+                }
                 break;
 
             case SDLK_LEFT:
-                DestPerso.x -= 1;
+                if(tab[DestPerso.y/TAILLE_BLOCK/MULTIPLICATEUR][DestPerso.x/TAILLE_BLOCK/MULTIPLICATEUR] != '1'){
+                    DestPerso.x -= 1;
+                }
+                if(tab[DestPerso.y/TAILLE_BLOCK/MULTIPLICATEUR][DestPerso.x/TAILLE_BLOCK/MULTIPLICATEUR] == '1'){
+                    DestPerso.x += 1;
+
+                }
                 break;
             
             case SDLK_RIGHT:
-                DestPerso.x += 1;
+                if(tab[DestPerso.y/TAILLE_BLOCK/MULTIPLICATEUR][(DestPerso.x + persoW*MULTIPLICATEUR)/TAILLE_BLOCK/MULTIPLICATEUR] != '1'){
+                    DestPerso.x += 1;
+                }
                 break;
 
             default:
