@@ -1,0 +1,4 @@
+- Jeu a la genre mario
+- Pourquoi pas le "compliquer" en ajoutant des items comme dans Ori
+- Ennemis pour plus tard
+- Pour l'instant que des obstacles pour coder les mouvements et la gravité
