@@ -107,8 +107,6 @@ int main()
 
         //Affichage du personnage
         SDL_RenderCopy(renderer, perso, &SrcPerso, &DestPerso);
-        
-        printf("%d\n",persoH);
 
         //Evenement du clavier
         SDL_PollEvent(&evenement);
@@ -168,26 +166,6 @@ int main()
                 }
             }
         }
-
-        /*for (int x = DestPerso.x; x <= DestPerso.x + persoW; x++) {
-            for (int y = DestPerso.y; y <= DestPerso.y + persoH; y++) {
-                if(tab[y/TAILLE_BLOCK/MULTIPLICATEUR][(DestPerso.x)/TAILLE_BLOCK/MULTIPLICATEUR] == '1'){
-                    DestPerso.x += 1;
-                }
-
-                if(tab[((DestPerso.y)*MULTIPLICATEUR)/TAILLE_BLOCK/MULTIPLICATEUR][x/TAILLE_BLOCK/MULTIPLICATEUR] == '1'){
-                    DestPerso.y += 1;
-                }
-
-                if(tab[y/TAILLE_BLOCK/MULTIPLICATEUR][(DestPerso.x + persoW)/TAILLE_BLOCK/MULTIPLICATEUR] == '1'){
-                    DestPerso.x -= 1;
-                }
-
-                if(tab[(DestPerso.y + persoH)/TAILLE_BLOCK/MULTIPLICATEUR][(x*MULTIPLICATEUR)/TAILLE_BLOCK/MULTIPLICATEUR] == '1'){
-                    DestPerso.y -= 1;
-                }
-            }
-        }*/
 
         //Affichage des éléments 
         SDL_RenderPresent(renderer);
