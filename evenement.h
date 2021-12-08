@@ -1,3 +1,3 @@
 #include <SDL2/SDL.h>
 
-void evenement_jeu(SDL_Event event);
+void evenement_jeu(SDL_Event event, world_t *world);
