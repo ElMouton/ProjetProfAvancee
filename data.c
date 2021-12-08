@@ -11,18 +11,8 @@ void init_sprite(sprite_t *sprite, int x, int y, int w, int h){
     sprite->h = h;
 }
 
-void print_sprite(sprite_t *sprite){
-    printf("x = %d, y = %d, w = %d, h = %d\n", sprite->x, sprite->y, sprite->w, sprite->h);
-}
 
-void ecrire_sprite_tab(sprite_t* sprite, char** tab){
-    for (int i = 0; i < sprite->h; i++)
-    {
-        for(int j = 0; j < sprite->w; j++){
-            tab[sprite->y + i][sprite->x + j] = '2';
-        }
-    }
-}
+//-------------------COLLISION-------------------//
 
 bool collision_haut(sprite_t *sprite, char** tab){
     bool coll = false;

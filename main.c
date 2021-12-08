@@ -5,11 +5,9 @@
 #include "SDL2/SDL.h"
 #include "fonctions_fichiers.h"
 #include "fonctions_SDL.h"
-
-#define MULTIPLICATEUR 9
-#define TAILLE_ECRAN_X 140 * MULTIPLICATEUR
-#define TAILLE_ECRAN_Y 91 * MULTIPLICATEUR
-#define TAILLE_BLOCK 7
+#include "Constante.h"
+#include "data.h"
+#include "textures.h"
 
 int main()
 {
@@ -19,10 +17,11 @@ int main()
 
     taille_fichier(fichier, &nbLig, &nbCol);
     tab = lire_fichier(fichier);
-    
-    afficher_tab_2D(tab, nbLig, nbCol);
+
     //--------------------------------INITIALISATION SDL--------------------------------//
     SDL_Event evenement;
+    world_t world;
+    textures_t textures;
 
     if(SDL_Init(SDL_INIT_VIDEO) < 0){
         printf("ERREUR D'INITIALISATION DE LA SDL : %s", SDL_GetError());
@@ -57,33 +56,12 @@ int main()
         SrcBlocks[i].h = blockH;
     }
 
-    //texture du personnage
-    Uint8 r = 255, g = 255, b = 255;
-    SDL_Texture* perso = charger_image_transparente("Ressource_projet/skin_player.bmp", renderer, r, g, b);
-
-    int nbPersoW = 3, nbPersoH = 2;
-    int persoW, persoH;
-    SDL_QueryTexture(perso, NULL, NULL, &persoW, &persoH);
-
-    persoW /= nbPersoW;
-    persoH /= nbPersoH;
-
-    SDL_Rect SrcPerso, DestPerso;
-    SrcPerso.x = 0;
-    SrcPerso.y = 0;
-    SrcPerso.w = persoW;
-    SrcPerso.h = persoH;
-
-    DestPerso.x = TAILLE_BLOCK*MULTIPLICATEUR;
-    DestPerso.y = TAILLE_BLOCK*MULTIPLICATEUR;
-    DestPerso.w = persoW*MULTIPLICATEUR;
-    DestPerso.h = persoH*MULTIPLICATEUR;
 
     //--------------------------------BOUCLE DE JEU--------------------------------//
     bool terminer = false;
 
     while(!terminer){
-        SDL_RenderClear(renderer);
+        renderer_clear(renderer);
         
         //Création et affichage de la map
         for(int i = 0; i < nbLig; i ++){
@@ -105,9 +83,6 @@ int main()
             }
         }
 
-        //Affichage du personnage
-        SDL_RenderCopy(renderer, perso, &SrcPerso, &DestPerso);
-
         //Evenement du clavier
         SDL_PollEvent(&evenement);
         switch (evenement.type){
@@ -122,19 +97,19 @@ int main()
                 break;
 
             case SDLK_UP:
-                DestPerso.y -= 2;                    
+                //DestPerso.y -= 2;                    
                 break;
 
             case SDLK_DOWN:
-                    DestPerso.y += 1;
+                //DestPerso.y += 1;
                 break;
 
             case SDLK_LEFT:
-                    DestPerso.x -= 1;
-                break;
+                //DestPerso.x -= 1;
+                break; 
             
             case SDLK_RIGHT:
-                    DestPerso.x += 1;
+                //DestPerso.x += 1;
                 break;
 
             default:
@@ -145,33 +120,11 @@ int main()
             break;
         }
 
-        DestPerso.y += 1;
-
-        for (int x = DestPerso.x; x < DestPerso.x + persoW; x++) {
-            for (int y = DestPerso.y; y < DestPerso.y + persoH; y++) {
-                if(tab[y/TAILLE_BLOCK/MULTIPLICATEUR][x/TAILLE_BLOCK/MULTIPLICATEUR] == '1'){
-                    DestPerso.y += 1;
-                }
-
-                if(tab[(y + persoH*MULTIPLICATEUR)/TAILLE_BLOCK/MULTIPLICATEUR][x/TAILLE_BLOCK/MULTIPLICATEUR] == '1'){
-                    DestPerso.y -= 1;
-                }
-
-                if(tab[y/TAILLE_BLOCK/MULTIPLICATEUR][x/TAILLE_BLOCK/MULTIPLICATEUR] == '1'){
-                    DestPerso.x += 1;
-                }
-
-                if(tab[y/TAILLE_BLOCK/MULTIPLICATEUR][(x + persoW*MULTIPLICATEUR)/TAILLE_BLOCK/MULTIPLICATEUR] == '1'){
-                    DestPerso.x -= 1;
-                }
-            }
-        }
+        refresh_graphics(renderer, &world, &textures);
 
         //Affichage des éléments 
-        SDL_RenderPresent(renderer);
+        mise_a_jour_renderer(renderer);
     }
-
-
 
     SDL_Quit();
     return 0;

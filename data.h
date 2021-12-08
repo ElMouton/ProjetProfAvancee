@@ -12,13 +12,11 @@ typedef struct sprite_s
 typedef struct world_s
 {
     sprite_t Personnage;
+    
     int vitesse;
 }world_t;
 
 void init_sprite(sprite_t *sprite, int x, int y, int w, int h);
-void print_sprite(sprite_t *sprite);
-
-void ecrire_sprite_tab(sprite_t* sprite, char** tab);
 
 bool collision_haut(sprite_t *sprite, char** tab);
 bool collision_bas(sprite_t *sprite, char** tab);
