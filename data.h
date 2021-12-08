@@ -14,6 +14,12 @@ typedef struct world_s
     sprite_t Personnage;
     
     int vitesse;
+    int gravite;
+
+    int etat_jeu;
+    int game_over;
+
+    char** wall;
 }world_t;
 
 void init_sprite(sprite_t *sprite, int x, int y, int w, int h);

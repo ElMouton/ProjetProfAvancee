@@ -17,7 +17,6 @@ int main()
     SDL_Event event;
 
     evenement_jeu(event);
-
     
     return 0;
 }

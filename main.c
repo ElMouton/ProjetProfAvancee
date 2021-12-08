@@ -21,20 +21,10 @@ int main()
     SDL_Event evenement;
     world_t world;
     textures_t textures;
+    SDL_Window* fenetre;
+    SDL_Renderer* renderer;
 
-    if(SDL_Init(SDL_INIT_VIDEO) < 0){
-        printf("ERREUR D'INITIALISATION DE LA SDL : %s", SDL_GetError());
-        SDL_Quit();
-        return EXIT_FAILURE;
-    }
-    
-    SDL_Window* fenetre = SDL_CreateWindow("Petit jeu sympa", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, TAILLE_ECRAN_X, TAILLE_ECRAN_Y, SDL_WINDOW_RESIZABLE);
-    if(fenetre == NULL){
-        printf("ERREUR DANS LE CHARGEMENT DE LA FENETRE : %s", SDL_GetError());
-        SDL_Quit();
-    }
-
-    SDL_Renderer* renderer = SDL_CreateRenderer(fenetre, -1, SDL_RENDERER_ACCELERATED);
+    init(fenetre, renderer, &world, &textures);
 
     //--------------------------------TEXTURES--------------------------------//
 
@@ -60,7 +50,7 @@ int main()
     bool terminer = false;
 
     while(!terminer){
-        renderer_clear(renderer);
+        clear_renderer(renderer);
         
         //Création et affichage de la map
         for(int i = 0; i < nbLig; i ++){
