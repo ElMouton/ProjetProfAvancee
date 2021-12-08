@@ -6,7 +6,6 @@
 #include "fonctions_fichiers.h"
 #include "fonctions_SDL.h"
 #include "Constante.h"
-#include "data.h"
 #include "textures.h"
 
 int main()
