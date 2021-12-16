@@ -23,7 +23,7 @@ void init_data(world_t * world) {
     world->game_over = 0;
 
     init_sprite(world->Personnage, 10, 10, 5, 5)	
-    init_walls(world);
+    //init_walls(world);
 }
 
 //-------------------COLLISION-------------------//
