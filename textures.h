@@ -1,13 +1,15 @@
 #include <SDL2/SDL.h>
 #include "data.h"
 
-typedef struct textures_s{
+struct textures_s{
     SDL_Texture* Personnage;
-}textures_t;
+};
+
+typedef struct textures_s textures_t;
 
 void init_textures(textures_t* textures, SDL_Renderer* renderer);
 
-void clean_texture(textures_t* textures);
+void clean_textures(textures_t* textures);
 
 void apply_texture(SDL_Texture* textures, SDL_Renderer* renderer, int x, int y, int w, int h);
 
